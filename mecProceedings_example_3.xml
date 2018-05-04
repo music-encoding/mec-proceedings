@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="mecProceedings_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="mecProceedings_schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-stylesheet type="text/xsl" href="mecProceedings.xsl"?>
+<confSubmission xmlns="http://www.music-encoding.org/ns/mei" version="0.05"
+  xmlns:ex="http://www.music-encoding.org/ns/mei/Examples"
+  xmlns:mei="http://www.music-encoding.org/ns/mei">
+  <title>Implementing the Functional Requirements for Bibliographic Records (FRBR) Model in
+    MEI</title>
+  <authorList>
+    <authorData>
+      <authorName>
+        <famName>Richts</famName>
+        <foreName>Kristina </foreName>
+      </authorName>
+      <affiliation>n/a</affiliation>
+      <email>author1@abc.edu</email>
+    </authorData>
+    <authorData>
+      <authorName>
+        <famName>Axel</famName>
+        <foreName>Teich Geertinger</foreName>
+      </authorName>
+      <affiliation>n/a</affiliation>
+      <email>author2@abc.edu</email>
+    </authorData>
+  </authorList>
+  <abstract>
+    <head>ABSTRACT</head>
+    <p>The Music Encoding Initiative’s (MEI) XML schema recommendation not only supports detailed
+      encodings of music notation; it also accommodates comprehensive metadata in the file header.
+      The attempt to utilize the header for cataloguing projects has proved the need to distinguish
+      different levels of description: Some metadata relate to the musical work in general, some
+      only to a certain version, or to a specific musical source, for instance. The Functional
+      Requirements for Bibliographic Records (FRBR) model, which was developed by the International
+      Federation of Library Associations and Institutions (IFLA), was explicitly conceived to
+      provide a concept for this distinction within bibliographic records in general. An effort has
+      been made within the MEI community to implement the so-called FRBR Group 1 entities (work,
+      expression, manifestation, and item) and relationships in the MEI header. The paper gives an
+      introduction to the FRBR implementation in MEI and demonstrates how relatively complex source
+      situations can be modeled with it. Some limitations and problems are discussed.</p>
+  </abstract>
+  <div>
+    <head>Introduction</head>
+    <p>The Music Encoding Initiative (MEI)<annot><ref>http://music-encoding.org</ref>.</annot>
+      strives to create a digital, symbolic representation of music notation. One of the advantages
+      of the MEI format is that it not only supports detailed encodings of music notation, but also
+      the recording of comprehensive metadata in the file header. The attempt to utilize the header
+      for cataloguing projects has proved the need to distinguish different levels of description:
+      Some metadata relate to the musical work in general, some only to a certain version, or to a
+      specific musical source, for instance. At the same time, the increasing internationalization
+      in the field of data curation and management leads to higher requirements for libraries and
+      research institutions. MEI aims at providing maximum compatibility between the data generated
+      by musicological research projects and best-practice cataloguing principles in libraries.</p>
+    <p>The Functional Requirements for Bibliographic Records (FRBR) model<bibl target="IFLA"/>
+      developed by the International Federation of Library Associations and Institutions (IFLA) was
+      explicitly conceived to provide a concept for this distinction within bibliographic records in
+      general. Against the background of the introduction of the new standard for cataloguing, the
+      Resource Description and Access
+        (RDA)<annot><ref>http://www.rda-jsc.org/rda.html</ref>.</annot>, which is based on the FRBR
+      model as well and will be fully implemented by the Library of Congress and several other
+      national libraries in 2013, an effort has been made within the MEI community to implement the
+      so-called FRBR Group 1 entities (work, expression, manifestation, and item) and relationships
+      in the MEI header. The following presentation gives an introduction to the FRBR implementation
+      in MEI and demonstrates how it can be used to model relatively complex source situations.</p>
+  </div>
+  <div>
+    <head>The MEI Header</head>
+    <p>From a music librarian’s perspective, the header of an MEI file offers promising
+      opportunities for the coverage and long-term archiving of bibliographic metadata of musical
+      sources. At this level, form and content data of sheet music can be enriched with authority
+      data. The abundance of data comprises formal elements, such as titles, personal names and
+      historical origin to the point of comprehensive instrumentation, water marks or information
+      concerning the condition of a source. Depending on the nature of the information, data can be
+      encoded in a structured form or as free text.</p>
+    <p>The MEI header is based on international cataloguing standards such as International Standard
+      Bibliographic Description (ISBD)<bibl target="ISBD"/> or Dublin Core<bibl target="Roland"/>.
+      It supports the capture of descriptive, administrative and technical metadata, both for the
+      electronic file and the source(s) which were used for the creation of the file. The MEI header
+      is divided into five main areas: <list form="ordered">
+        <li>Alternative Identifier <term>&lt;altId></term>,</li>
+        <li>File Description <term>&lt;fileDesc></term> (including source description),</li>
+        <li>Encoding Description <term>&lt;encodingDesc></term>,</li>
+        <li>Work Description <term>&lt;workDesc></term> and</li>
+        <li>Revision Description <term>&lt;revisionDesc></term>.</li>
+      </list></p>
+  </div>
+  <div>
+    <head>The FRBR Model</head>
+    <p>The model of the Functional Requirements for Bibliographic Records constitutes an abstract
+      reference model, which was first published by the International Federation of Library
+      Associations and Institutions (IFLA) in 1998. It aims to demonstrate the relations between a
+      work and its expressions, relations to responsible persons as well as thematic relations. For
+      this purpose, the model defines ten entities within three groups:</p>
+    <table>
+      <caption>FRBR Entities</caption>
+      <tr>
+        <td>Group 1 Entities</td>
+        <td>Work, Expression, Manifestation, Item</td>
+      </tr>
+      <tr>
+        <td>Group 2 Entities</td>
+        <td>Person, Corporate Body</td>
+      </tr>
+      <tr>
+        <td>Group 3 Entities</td>
+        <td>Concept, Object, Event, Place</td>
+      </tr>
+    </table>
+    <p>The FRBR model distinguishes four levels of abstraction, or "Group 1" entities: <list>
+        <li>Work: FRBR defines a work as a "distinct intellectual or artistic creation", an abstract
+          entity because there is no single material object one can point to as the work.</li>
+        <li>Expression: An expression is defined as "the intellectual or artistic realization of a
+          work in the form of [...] notation, sound, image, object, movement, etc., or any
+          combination of such forms". Expressions are also abstract entities.</li>
+        <li>Manifestation: A manifestation is defined as "the physical embodiment of an expression
+          of a work", including, for instance, manuscripts, books, sound recordings, films, video
+          recordings, CD-ROMs, multimedia kits, etc. The manifestation represents all the physical
+          objects that bear the same characteristics, with respect to both intellectual content and
+          physical form.</li>
+        <li>Item: A single exemplar of a manifestation is called an item, e.g., a specific copy of a
+          printed score. With manuscripts, item and manifestation levels are nearly identical. A
+          manuscript may be regarded as a manifestation having only one item.</li>
+      </list></p>
+    <fig>
+      <caption>Group 1 entities and primary relationships.</caption>
+      <graphic target="ex03fig01.png"/>
+    </fig>
+  </div>
+  <div>
+    <head>Variations/FRBR and Other FRBR-Like Implementations</head>
+    <p>In the field of music, several efforts of implementing the FRBR model have been made within
+      the last few years. The probably best-known project is the Variations
+          Project<annot><ref>http://variations2.indiana.edu/</ref>.</annot> located at Indiana
+      University, Bloomington, which for the first time underlined the full benefit of FRBR for use
+      in digital libraries. In the context of the Variations2 project a FRBR-like model has been
+      developed. This model consists of the five entities "work", "instantiation", "container",
+      "media object" and "contributor".</p>
+    <fig>
+      <caption>Variations2 data model.<bibl target="Minibayeva"/></caption>
+      <graphic target="ex03fig02.png"/>
+    </fig>
+    <p>A comparison of the IFLA’s FRBR model and the model of the Indiana Variations project shows
+      some substantial differences, which have to be seen against the practical background of the
+      project. Even if the illustration suggests an exact match from container to manifestation and
+      from media object to item, FRBR would actually consider the media object a new manifestation
+      rather than an item. Furthermore, the FRBR entities "manifestation" and "item" are merged into
+      a single entity named "container". Such an approach equates to the common librarian use of
+      indexing media by capturing metadata referring to all existing items of a manifestation as
+      well as metadata describing only a single item of a manifestation. Existing cataloguing
+      formats such as MARC support similar models. The FRBR model strictly distinguishes these two
+      entities. Simpler models may be useful for specific projects, but have to be considered
+      critically, as the result could be incompatibilities in the long term. In this context, it is
+      also important to point out the new Bibframe<annot>Bibliographic Framework Initiative.
+          <ref>http://www.loc.gov/bibframe/</ref>.</annot> format proposal of the Library of
+      Congress, which intends to replace the data format MARC 21. Bibframe offers an even more
+      simplified model, only distinguishing between "creative works" and "instances".</p>
+  </div>
+  <div>
+    <head>The FRBR Implementation in MEI</head>
+    <p>Unlike some other adaptations of FRBR, such as the Indiana Variations project, MEI implements
+      the FRBR Group 1 model quite strictly: With the new FRBR module, which is part of the MEI 2013
+      schema, MEI offers four elements corresponding to the FRBR entities. The names of these
+      elements generally follow those of FRBR: <list>
+        <li><term>&lt;work></term> – A container for description at FRBR "work" level.</li>
+        <li><term>&lt;expression></term> – For description at FRBR "expression" level.</li>
+        <li><term>&lt;source></term> – The MEI equivalent to FRBR "manifestation" level. The name
+          "source" is retained mainly for backward compatibility and for its more intuitive
+          meaning.</li>
+        <li><term>&lt;item></term> – For FRBR "item" level information.</li>
+      </list></p>
+    <fig>
+      <caption>Basic MEI FRBR model</caption>
+      <graphic target="ex03fig03.png"/>
+    </fig>
+    <p>This is the basic structure of the FRBR entity model as implemented in MEI.
+        <term>&lt;expression></term> elements are listed in the <term>&lt;expressionList></term>
+      element, which is a child of <term>&lt;work></term>. In the same manner,
+        <term>&lt;item></term> elements are placed in an <term>&lt;itemList></term> element within
+        <term>&lt;source></term>. This structure implies a one-to-many relationship between
+        <term>&lt;work></term> and <term>&lt;expression></term>, and between
+        <term>&lt;source></term> and <term>&lt;item></term>, respectively, but in agreement with the
+      FRBR model not between <term>&lt;expression></term> and <term>&lt;source></term>, which have a
+      many-to-many relationship.</p>
+    <fig>
+      <caption>Component groups (with <term>@label</term> used instead of <term>&lt;title></term>
+        for brevity).</caption>
+      <graphic target="ex03fig04.png"/>
+    </fig>
+    <p>Furthermore, each of the four entity-like elements allows a <term>&lt;componentGrp></term>
+      element to describe the entity’s constituent parts – for instance, the movements of a work, or
+      the individual parts of a set of parts, or the individual folios of a manuscript. Following
+      the IFLA’s FRBR recommendation, the child elements are the same type as the parent: the
+      constituent parts of a source, for instance, are also described as sources. This construct
+      allows the description in full detail at any number of levels. The example shows the principle
+      of how to encode a source representing a set of part books, each containing a number of
+      pieces. An example at expression level could be the encoding of the structure of an opera: its
+      division into acts, acts into scenes, scenes into arias, etc. This technique is also used by
+      the MEI metadata editor
+          MerMEId<annot><ref>http://www.kb.dk/en/kb/nb/mta/dcm/projekter/mermeid.html</ref>.</annot>
+      as demonstrated at this conference’s poster session.</p>
+    <p>For the encoding of relations not implied by the structural model itself, MEI provides in
+      each of the four entity elements a <term>&lt;relationList></term> element, in which
+        <term>&lt;relation></term> child elements may define any relations between entities, like
+      the relations between <term>&lt;source></term> and <term>&lt;expression></term> elements, or
+      the nature of the relationship between different expressions of the work, or between sources.
+      For instance, one source may be defined to be a reprint of another by means of the
+      "isReproductionOf" relation.</p>
+    <fig>
+      <caption>Relations.</caption>
+      <graphic target="ex03fig05.png"/>
+    </fig>
+  </div>
+  <div>
+    <head>FRBR vs. Non-FRBR Examples</head>
+    <p>In some cases, MEI offers the possibility to encode the same information with or without the
+      FRBR module. Please note that we are only discussing the organization of the header here, not
+      the encoding of the music. It might be added, though, that the FRBR elements such as
+        <term>&lt;source></term> can be linked to their corresponding music encodings by means of
+      the "data" attribute. This way, the descriptions of sources (or expressions) in the MEI header
+      may be used to describe which portions of the music encoded in an MEI file appear in that
+      particular source (or expression).</p>
+    <fig>
+      <caption>Modeling work component structure.</caption>
+      <graphic target="ex03fig06.png"/>
+    </fig>
+    <p>Figure 6 shows an example outlining an MEI encoding of a header for Schumann’s
+        <title>Lieder-Album für die Jugend</title>. For a detailed description of each of the songs
+      (including incipits, for instance) without the FRBR module, each of the songs would be encoded
+      as a work in the <term>&lt;workDesc></term> element as shown on the left. This solution
+      imposes a certain work concept on the encoding, which may not be the one intended by the
+      encoder: It implies that the songs are conceived as individual works encoded in one file. If
+      instead the album is conceived as one work containing a number of songs (as – in this case –
+      it was definitely intended by the composer), the FRBR module offers a much more suitable
+      solution, outlined on the right. The individual songs are now described as component works
+      within the main work. This model also allows the encoding of fully detailed metadata at both
+      levels: This way the creational history, for instance, can be described both for the main
+      work, the album, and for each song individually.</p>
+    <p>Figure 7 illustrates the encoding of sources with and without the FRBR module. Shown on the
+      left is the outline of a printed source encoded without FRBR. To identify individual copies of
+      this source, a number of <term>&lt;physLoc></term> (physical location) elements may be added
+      (two in this case).</p>
+    <fig>
+      <caption>Modeling source/item structure</caption>
+      <graphic target="ex03fig07.png"/>
+    </fig>
+    <p>Using this structure, however, there is no way of describing the physical features of the
+      individual copies, but only of the entire print run. Also use restrictions at the single copy
+      level as shown in the right-most example are impossible to encode in one source element
+      without the FRBR module. A workaround would be to describe the copies of the print in two
+      distinct <term>&lt;source></term> elements – just like the sibling <term>&lt;work></term>
+      elements in the previous example. But then of course the problem would be where to describe
+      the features common to all copies of this print. Basically, the <term>&lt;source></term>
+      element in non-FRBR MEI is not designed to represent only manifestation or item level but
+      both, potentially resulting in ambiguity and inconsistency. In this respect, traditional MEI
+      handles sources in a simplified way very much like the Variations and other projects.</p>
+    <p>A problem not directly related to the FRBR discussion is that for historical reasons the
+        <term>&lt;provenance></term> element is located in the <term>&lt;physDesc></term> element,
+      and not in <term>&lt;physLoc></term>, where it logically belongs. Trying to describe the
+      provenance of more than one copy of a source within a non-FRBR source description therefore is
+      – at best – difficult.</p>
+    <p>Using the FRBR module, a clear distinction can be made between the description of the entire
+      print run and the individual copies (items). Since items can only have one location, the
+        <term>&lt;provenance></term> problem is not equally apparent here, but still it seems to be
+      a misconception to regard the provenance of an object part of its physical appearance. The
+      drawback of using FRBR for source descriptions is that it complicates the description of
+      manuscripts somewhat, because there will be a 1:1 relationship between source and item.
+      Therefore it may be difficult to decide what information should be encoded at source level and
+      what belongs to the item. From a FRBR point of view, manuscripts are manifestations having
+      only one item, which may be helpful to bear in mind when encoding them.</p>
+  </div>
+  <div>
+    <head>Limitations and Problems</head>
+    <p>There has been a general concern that the implementation of FRBR in MEI might complicate
+      things unnecessarily for some projects. Therefore, the FRBR model is implemented in MEI as an
+      optional module, ensuring that those projects which do not need to capture comprehensive
+      metadata can use MEI in its traditional structure as far as possible. Especially with
+      encodings only including a minimum of metadata, a complex knowledge about the FRBR
+      functionality is not required. Nevertheless, the availability of all four FRBR entities
+      implies a certain risk to abuse the concepts of FRBR. This challenge can only be addressed by
+      a detailed documentation, supplemented by convincing examples, a collection of which is
+      currently being compiled as part of the MEI Guidelines. As substantial components of the FRBR
+      adaptation are placed in a separate FRBR module the problem has been alleviated to some
+      extent. By deactivating this module, merely the two elements <term>&lt;work></term> and
+        <term>&lt;source></term> are maintained and can be utilized in a similar way as before. As a
+      rule, encodings can be adopted and enriched or diversified in a FRBR-compliant way, if the
+      separate FRBR module is activated subsequently.</p>
+    <p>Perhaps one of the most intricate aspects in adopting the FRBR model is the interpretation of
+      the expression entity. According to FRBR, expressions are different realizations of the work.
+      The work as it is notated is one expression; each performance constitutes a new one. This may
+      result in a rather complex model with a very large number of expressions and an equally large
+      number of relations to clarify their interconnectedness. Furthermore, different versions of
+      the notated work – for instance, re-arrangements or revisions – are distinct expressions, and
+      one of the questions is where to draw the line between them. What is the amount of variation
+      allowed within an expression? The FRBR report states that <quote block="true"><rend
+          rend="quotedbl">Strictly speaking, any change in intellectual or artistic content
+          constitutes a change in expression. Thus, if a text is revised or modified, the resulting
+          expression is considered to be a new expression, no matter how minor the modification may
+          be.</rend><bibl target="IFLA"><biblScope from="1:19"/></bibl></quote></p>
+    <p>However this is somewhat moderated in the following passage: <quote block="true"><rend
+          rend="quotedbl">On a practical level, the degree to which bibliographic distinctions are
+          made between variant expressions of a work will depend to some extent on the nature of the
+          work itself, and on the anticipated needs of users.</rend><bibl target="IFLA"><biblScope
+            unit="page" from="1:19"/></bibl></quote> This does leave some room for the definition of
+      an expression’s boundaries.</p>
+    <fig>
+      <caption>Restrictive interpretation of the expression entity.</caption>
+      <graphic target="ex03fig08.png"/>
+    </fig>
+    <p>If no variation is allowed at all, each manuscript and each printed edition would require its
+      own expression, since there will nearly always be some differences between their contents. The
+      result would be a 1:1 relationship between expression and manifestation levels (MEI:
+      expression and source), which would make the distinction between the two levels both difficult
+      and in effect unnecessary. Only in the case where there are exact reproductions such as
+      photocopies or microfilms of the source would there be more than one manifestation to an
+      expression, as illustrated in Figure 8.</p>
+    <p>Also, with one expression for each source, there is no entity level left for grouping the
+      manifestations in, for instance, different versions of the work such as re-instrumentations or
+      revisions. Suppose we have two versions of a work: an original version and a revision. A
+      number of written or printed sources exist for each of them. Defining each of the sources
+      within its own expression (because they differ in some detail) would give us a considerable
+      number of sibling expressions. Add to this one expression for each performance. As suggested
+      by the FRBR report, relations could be used to define which performance material was used for
+      which performance.</p>
+    <fig>
+      <caption>Complex expression relations.</caption>
+      <graphic target="ex03fig09.png"/>
+    </fig>
+    <p>The result is a large complex of entities and relations at the expression level (Figure 9).
+      It should be noted, however, that this complexity is not due to the way FRBR is implemented in
+      MEI; rather, it displays problems inherent to the FRBR model itself. It may be questioned, for
+      instance, whether FRBR is right in regarding a performance as an abstract entity.</p>
+    <p>To maintain a meaningful and manageable distinction between expression and manifestation
+      levels, it might be advisable to only distinguish different versions of the work at the
+      expression level, accepting some variation among different sources within that expression. As
+      to the encoding of performance data, MEI offers a much simpler alternative, using the
+        <term>&lt;history></term> element’s <term>&lt;eventList></term> element to describe
+      performances.</p>
+    <p>These modifications to the FRBR model are indeed used by the MerMEId metadata editor in order
+      to reduce complexity. A justification for this view on performances may be that MEI is
+      explicitly notation-centric and thus may regard performances as contextual information rather
+      than the primary objects of the encodings. However both approaches are possible and valid in
+      MEI and in the end each project will have to choose what is judged to be the most appropriate
+      solution.</p>
+    <fig>
+      <caption>Using expressions for versions.</caption>
+      <graphic target="ex03fig10.png"/>
+    </fig>
+  </div>
+  <div>
+    <head>Conclusion</head>
+    <p>By implementing the FRBR module MEI has taken an important step towards a consistent and
+      comprehensive bibliographic description of music and musical sources in agreement with
+      internationally accepted recommendations. Since – at least for the time being – using the FRBR
+      module is optional, projects are still free to choose their way of encoding metadata in MEI.
+      It should nevertheless be emphasized, that even if non-FRBR MEI is still valid when activating
+      the FRBR module, the concept of the <term>&lt;source></term> element is shifting from being a
+      mixed manifestation and item container into being a manifestation level container only. To
+      detect how the <term>&lt;source></term> element is to be understood in each case, it may be
+      worthwhile considering some indication in the MEI file as to whether the encoding is (or is
+      intended to be) FRBR compliant or not. On the other hand, also encoders using all four FRBR
+      entity levels may choose to simplify the original FRBR model by encoding, for instance,
+      performances as events rather than expressions, so in effect there will be different degrees
+      of FRBR compliance. Nevertheless, where strict FRBR Group 1 compliance is required, MEI now
+      offers an adequate implementation, ensuring that encoded MEI metadata can be mapped to other
+      encoding systems based on the FRBR model.</p>
+  </div>
+  <biblList>
+    <head>WORKS CITED</head>
+    <bibl xml:id="IFLA">IFLA Study Group on the Functional Requirements for Bibliographic Records:
+      Functional Requirements for Bibliographic Records. Final Report. München: Saur, 1998,
+        <ref>http://www.ifla.org/publications/functional-requirements-for-bibliographic-records</ref>.</bibl>
+    <bibl xml:id="Minibayeva">Minibayeva, N. and J. W. Dunn: "A Digital Library Data Model for
+      Music," Proceedings of the Second ACM/IEEE-CS Joint Conference on Digital Libraries,
+        <ref>http://doi.acm.org/10.1145/544220.544249</ref>, pp. 154–155.</bibl>
+    <bibl xml:id="Roland">Roland, P. "Music Encoding Initiative (MEI) DTD and the OCVE", 2nd OCVE
+      Meeting. Philadelphia, Pennsylvania, 2004.</bibl>
+    <bibl xml:id="ISBD">Standing Committee of the IFLA Cataloguing Section. ISBD: International
+      Standard Bibliographic Description. Consolidated edition. Berlin/München: De Gruyter Saur,
+      2011.</bibl>
+  </biblList>
+</confSubmission>

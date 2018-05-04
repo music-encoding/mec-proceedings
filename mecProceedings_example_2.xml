@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="mecProceedings_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="mecProceedings_schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-stylesheet type="text/xsl" href="mecProceedings.xsl"?>
+<confSubmission xmlns="http://www.music-encoding.org/ns/mei" version="0.05"
+  xmlns:ex="http://www.music-encoding.org/ns/mei/Examples"
+  xmlns:mei="http://www.music-encoding.org/ns/mei">
+  <title>Encoding, Searching, and Displaying of Music Incipits in the RISM-OPAC</title>
+  <authorList>
+    <authorData>
+      <authorName>
+        <famName>Diet</famName>
+        <foreName>Jürgen</foreName>
+      </authorName>
+      <affiliation>N/A</affiliation>
+      <email>diet@example.com</email>
+    </authorData>
+    <authorData>
+      <authorName>
+        <famName>Gerritsen</famName>
+        <foreName>Magda</foreName>
+      </authorName>
+      <affiliation>N/A</affiliation>
+      <email>gerritson@example.com</email>
+    </authorData>
+  </authorList>
+  <abstract>
+    <head>ABSTRACT</head>
+    <p>The RISM-OPAC (http://opac.rism.info) is a free online catalogue that provides access to the
+      data of the RISM series A II (music manuscripts between 1600 and 1800). It has been developed
+      by the Bavarian State Library in cooperation with RISM and the State Library of Berlin and was
+      launched in June 2010. In March 2011, a new version of the RISM-OPAC has been released that
+      includes a searching possibility in the music incipits of the RISM data. Most of the 850.000
+      data records (as of September 2013) contain one or several music incipits that describe the
+      beginning of instrumental or vocal parts of the music manuscripts using the Plaine&amp;Easie
+      code. This paper describes how the music incipits are encoded in Plaine&amp;Easie and how the
+      searching for music incipits is done in the RISM-OPAC. Furthermore, the rendering of an
+      incipit encoded in Plaine&amp;Easie in a graphical image will be covered. When a RISM-record
+      is displayed the user will not see the Plaine&amp;Easie code but the corresponding graphical
+      form using the common western music notation. <!-- abstract is too long -->
+      <!--Finally, the current developments for the next version of the RISM-OPAC will be explained that include
+      among others an improved user interface for searching in the music incipits and the conversion of the data
+      records of the RISM series A/II into RDF in order to publish them as linked open data.--></p>
+  </abstract>
+  <div>
+    <head>History and Status Quo of RISM and the RISM-OPAC</head>
+    <p>Before describing the RISM-OPAC, a short description of RISM itself will be helpful<annot>All
+        URLs in this article have been checked on October 9, 2013.</annot>: <quote><p>"The
+          International Inventory of Musical Sources – Répertoire International des Sources
+          Musicales (RISM) – is a multinational, non-profit joint venture which aims for
+          comprehensive documentation of extant musical sources worldwide. These primary sources are
+          manuscripts or printed music, writings on music theory, and libretti. They are housed in
+          libraries, archives, monasteries, schools and private collections.</p>
+        <p>The organization, founded in Paris in 1952, is the largest and only global operation that
+          documents written musical sources. RISM records what exists and where it can be found. As
+          a result, musical traditions are protected through cataloguing in a comprehensive
+          inventory while also being made available to musicologists and musicians. Such work is
+          thus not an end in itself, but leads directly to practical applications."<bibl
+            target="rism"/></p></quote> Currently, RISM groups are working in 36 countries and are
+      cataloguing their data in a central database hosted by the State Library of Berlin. The RISM
+      central office in Frankfurt, Germany, consolidates this data and delivers it monthly to the
+      Bavarian State Library where the RISM-OPAC is being developed and hosted (<ref
+        target="http://opac.rism.info">http://opac.rism.info</ref>). The first release of the
+      RISM-OPAC went online in June 2010; a second release followed in March 2011 and included the
+      ability to search by music incipits. The database currently contains around 1,200,000 incipits
+      in 850,000 data records and increases by around 25,000 data records each year.</p>
+    <fig>
+      <caption>Homepage of RISM-OPAC at https://opac.rism.info/index.php?id=2&amp;L=1</caption>
+      <graphic target="ex02fig01.png"/>
+    </fig>
+    <p>The most recent new development of the RISM-OPAC is the release of the RISM data records as
+      open data in the format MARC-XML. Since July 2013, this data can be downloaded from the
+      RISM-OPAC website at <ref target="https://opac.rism.info/index.php?id=8&amp;L=1"
+        >https://opac.rism.info/index.php?id=8&amp;L=1</ref>.</p>
+  </div>
+  <div>
+    <head>Encoding of Music Incipits with Plaine&amp;Easie Code</head>
+    <div>
+      <head>The Plaine&amp;Easie Code</head>
+      <p>Plaine&amp;Easie is an alpha-numeric code for encoding musical notation. It is maintained
+        by the International Association of Music Libraries (IAML) and by RISM and is described on
+        the IAML web pages: <ref
+          target="http://www.iaml.info/en/activities/projects/plain_and_easy_code"
+          >http://www.iaml.info/en/activities/projects/plain_and_easy_code</ref>. A good overview of
+        several musical codes (including Plaine&amp;Easie) can be found in Eleanor Selfridge-Fields’
+        book "Beyond Midi"<bibl target="selfridge-field"/>.</p>
+      <p>Here is an example for a music incipit and its corresponding notation in
+        Plaine&amp;Easie:</p>
+      <fig>
+        <caption>′4F8-FA″C/4F8.At3GA‴4C/′F8-FB″D/4F</caption>
+        <graphic target="ex02fig02.png"/>
+      </fig>
+    </div>
+    <div>
+      <head>Cataloguing the RISM incipits</head>
+      <p>The RISM country groups are cataloguing their data using the software "Kallisto". Kallisto
+        is a proprietary software and distributed to the RISM country groups by the RISM central
+        office free of charge. The YouTube channel of the RISM central office contains several
+        videos that describe the cataloguing process with Kallisto, among others a video about
+        entering incipits in Kallisto: <ref
+          target="http://www.youtube.com/user/RISMZentralredaktion"
+          >http://www.youtube.com/user/RISMZentralredaktion</ref>. The incipits in the RISM database
+        are encoded in Plaine&amp;Easie, and each RISM data record can contain one or more incipits.
+        For instrumental music, the first bars of the first violin or the highest instrument are
+        used for the incipit. For vocal music, the first bars of the highest voice are used. The
+        length of a RISM incipit should be at least 3 bars or 10 non-repeated notes. In its
+        typewritten version the code should fit on a single line.</p>
+    </div>
+  </div>
+  <div>
+    <head>Searching for Music Incipits</head>
+    <p>The data of the RISM-OPAC is stored in a FAST-ESP-index (Fast Search &amp; Transfer ASA,
+      Enterprise Search Product). FAST is a Norwegian company with focus on data search
+      technologies. It has been acquired by Microsoft in 2008.</p>
+    <p>There are two index fields that contain the music incipits. The first one includes the
+      Plaine&amp;Easie code where the code has been reduced to the pitch values and halftones are
+      not considered. The pitch value "B" is represented both as "B" and in its German version "H".
+      E.g., the Plaine&amp;Easie code
+      <programCode>{"6C'GG"C}{CEED}4D4-/6-{"DDF}{FAA'nB}'4B4-/</programCode> is thus represented in
+      the FAST-index as
+      <programCode>CGGCCEEDDDDFFAABB|CGGCCEEDDDDFFAAHH|CCCDDDFFF|CCCDDDFFF</programCode></p>
+    <p>The RISM-OPAC offers two different search methods by music incipits: with transposition and
+      without transposition. For the search with transposition, a second FAST index field is used
+      that contains all transposed representations of the original search string. The second FAST
+      index field of the above mentioned Plaine&amp;Easie incipit includes this representation: <programCode>
+        <![CDATA[CGGCCEEDDDDFFAABB|DAADDFFEEEEGGBBCC|EBBEEGGFFFFAACCDD|
+        FCCFFAAGGGGBBDDEE|GDDGGBBAAAACCEEFF|AEEAACCBBBBDDFFGG|
+        BFFBBDDCCCCEEGGAA|HFFHHDDCCCCEEGGAA|CGGCCEEDDDDFFAAHH|
+        DAADDFFEEEEGGHHCC|EHHEEGGFFFFAACCDD|FCCFFAAGGGGHHDDEE|
+        GDDGGHHAAAACCEEFF|AEEAACCHHHHDDFFGG|CCCDDDFFF|DDDEEEGGG|
+        EEEFFFAAA|FFFGGGBBB|GGGAAACCC|AAABBBDDD|BBBCCCEEE|
+        HHHCCCEEE|FFFGGGHHH|AAAHHHDDD]]>
+      </programCode>
+    </p>
+  </div>
+  <div>
+    <head>Displaying the Music Incipits</head>
+    <p>For displaying the music incipits, the RISM-OPAC uses a PHP script that invokes a software
+      module written in C++ by Dr. Gieseking. The input parameters of this C++-module are the id of
+      the incipit and the Plaine&amp;Easie code. The output is an image in the format PNG. If the
+      incipit is not a valid Plaine&amp;Easie code, then only the parameter "id" is returned.</p>
+    <p>The following URL is an example for invoking the C++-module with the two parameters "id" and
+      "incipit":
+      http://opac.rism.info/incipit.php?id=20001847&amp;incipit=%25G-2%40c%24bBEA%25B3{%27%276C%27GG%
+      27%27C}{CEED}4D4-%2F6-{%27%27DDF}{FAA%27nB}%274B4-%2F</p>
+    <p>The result of the C++-module is the following PNG-file:</p>
+    <fig>
+      <caption>Display results.</caption>
+      <graphic target="ex02fig03.png"/>
+    </fig>
+  </div>
+  <div>
+    <head>Plans for Further Developments of the RISM-OPAC</head>
+    <p>During the year 2013, new developments of the RISM-OPAC are being made that will go online
+      probably in spring 2014. These developments are part of the grant for the third project phase
+      of the Virtual Library of Musicology. The Virtual Library of Musicology is funded by the
+      German Research Foundation in the grant GR 2956/24-2.</p>
+    <p>The RISM-OPAC developments in 2013 include <list form="marked">
+        <li>the introduction of institutional and collection level views to the RISM data so that
+          other institutions can integrate a subset of the RISM data into their websites</li>
+        <li>improvements in the display of search results (e.g., for persons)</li>
+        <li>enabling the search for RISM data records with digitizations</li>
+        <li>an improved incipit search that recognizes half tones and has a virtual keyboard as user
+          interface for entering the search melody</li>
+        <li>the integration of the RISM series B/I (collective music prints) in the RISM-OPAC</li>
+        <li>the publication of the RISM data in RDF (i.e., as linked open data) and</li>
+        <li>bug fixes.</li>
+      </list></p>
+    <p>In the medium term, more developments of the RISM-OAPC are planned but are dependent on
+      appropriate funding. These plans include <list form="marked">
+        <li>the integration of the RISM series A/I (individual music prints) in the RISM-OPAC</li>
+        <li>improved integration of authority files (GND and VIAF) and</li>
+        <li>implementing new requirements of the successor software of Kallisto.</li>
+      </list></p>
+  </div>
+  <biblList>
+    <head>WORKS CITED</head>
+    <bibl xml:id="rism">RISM web site. <ref target="http://www.rism.info/en/organisation.html"
+        >http://www.rism.info/en/organisation.html</ref></bibl>
+    <bibl xml:id="selfridge-field">Selfridge-Field, Eleanor. Beyond MIDI: The handbook of musical
+      codes. Cambridge, MA: MIT Press, 1997.</bibl>
+  </biblList>
+</confSubmission>
