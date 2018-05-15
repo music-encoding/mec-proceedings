@@ -4,19 +4,40 @@ v1.0.0 (MEC2017)
 
 This repository makes available schemata, templates and examples for preparing a submission to the proceedings of the Music Encoding Conference.
 
-## Usage
+## How this repository is organised
 
-The template ([mecProceedings_template.xml](mecProceedings_template.xml)) gives a heads up description of how to encode and format certain aspects of a submission in the custom XML format.
+### Compiled schema
 
-The examples are encodings of ‚real‘ conference papers in order to add a more tangible layer to the way of encoding.
+Compiled, ready-to-use schemata are located in the [schemata](schemata) folder.
 
-The best way to start your own submission is to download this repository and then edit the template file. Please take care to keep everything concerned to your submission in the same folder, including the schema ([mecProceedings_schema.rng](mecProceedings_schema.rng)) and the XSLT ([mecProceedings.xsl](mecProceedings.xsl)). Both theses files are already associated with the template and the examples. The schema allows for assistance, content completion, and validation in an XML editor. The XSLT on the other hand allows for an eye-friendly preview of the files in a web-browser, by simply opening the respective XML file in any modern browser.
+### Schema development
 
-## Schema
+The schema is in fact a customization of the MEI schema. Thus the development of the schema is based on ODD. The corresponding ODD file is located in the [source](source) folder.
 
-The Schema is being developed in the ODD (One Document Does it all) schema metalanguage developed by the Text Encoding Initiative (TEI).
+### Examples
+
+The [examples](examples) folder provides real examples of encoded articles.
+
+### Stylesheets
+
+The [stylesheets](stylesheets) folder provides XSLT files for transforming documents encoded according to the mecProceedings schemata to other formats.
+
+E.g. to HTML using the [stylesheets/mecProceedins.xsl](stylesheets/mecProceedins.xsl). This stylesheet is an XSLT 1.0 stylesheet that can be executed on the fly by any browser. So if your submission references the stylesheet from its preamble (as in the xeample below) and you open the XML file with your browser you will be provided with a HTML version that eases reading.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="mecProceedings.xsl"?>
+<confSubmission xmlns="http://www.music-encoding.org/ns/mei" version="0.05"
+  xmlns:ex="http://www.music-encoding.org/ns/mei/Examples"
+  xmlns:mei="http://www.music-encoding.org/ns/mei">
+…
+</confSubmission>
+```
+
+### Template
+
+A template describing how to author a submission can be found in the [templates](templates) folder.
 
 ## License
 
-This code is made available under the terms of 
-[AGPL-3.0](LICENSE)
+This code is made available under the terms of [AGPL-3.0](LICENSE)
